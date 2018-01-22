@@ -29,17 +29,19 @@ def clean_doc(doc):
 	tokens = [word for word in tokens if len(word) > 1]
 	return tokens
 
-# load doc and add to vocab
-def add_doc_to_vocab(filename, vocab):
-	# load doc
+# load doc, clean and return line of tokens
+def doc_to_line(filename, vocab):
+	# load the doc
 	doc = load_doc(filename)
 	# clean doc
 	tokens = clean_doc(doc)
-	# update counts
-	vocab.update(tokens)
+	# filter by vocab
+	tokens = [w for w in tokens if w in vocab]
+	return ' '.join(tokens)
 
 # load all docs in a directory
 def process_docs(directory, vocab):
+	lines = list()
 	# walk through all files in the folder
 	for filename in listdir(directory):
 		# skip any reviews in the test set
@@ -47,39 +49,19 @@ def process_docs(directory, vocab):
 			continue
 		# create the full path of the file to open
 		path = directory + '/' + filename
-		# add doc to vocab
-		add_doc_to_vocab(path, vocab)
+		# load and clean the doc
+		line = doc_to_line(path, vocab)
+		# add to list
+		lines.append(line)
+	return lines
 
-# define vocab
-vocab = Counter()
-# add all docs to vocab
-process_docs('txt_sentoken/pos', vocab)
-process_docs('txt_sentoken/neg', vocab)
-# print the size of the vocab
-print(len(vocab))
-# print the top words in the vocab
-print(vocab.most_common(50))
-
-# keep tokens with a min occurrence
-min_occurane = 2
-tokens = [k for k,c in vocab.items() if c >= min_occurane]
-print(len(tokens))
-
-# keep tokens with a min occurrence
-min_occurane = 2
-tokens = [k for k,c in vocab.items() if c >= min_occurane]
-print(len(tokens))
-
-# save list to file
-def save_list(lines, filename):
-	# convert lines to a single blob of text
-	data = '\n'.join(lines)
-	# open file
-	file = open(filename, 'w')
-	# write text
-	file.write(data)
-	# close file
-	file.close()
- 
-# save tokens to a vocabulary file
-save_list(tokens, 'vocab.txt')
+# load the vocabulary
+vocab_filename = 'vocab.txt'
+vocab = load_doc(vocab_filename)
+vocab = vocab.split()
+vocab = set(vocab)
+# load all training reviews
+positive_lines = process_docs('txt_sentoken/pos', vocab)
+negative_lines = process_docs('txt_sentoken/neg', vocab)
+# summarize what we have
+print(len(positive_lines), len(negative_lines))
