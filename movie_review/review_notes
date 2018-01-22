@@ -1,3 +1,8 @@
+- example of vocab?
+{'bradys', 'jade', 'bushes'}
+
+>>> type(vocab)
+<class 'set'>
 
 - what is the difference between Vocab and bag of words?
 
@@ -7,5 +12,58 @@
 
 - what are tokens? examples?
 
+e.g. ['films', 'adapted', 'comic', 'books']
+>>> type(tokens)
+<class 'list'>
 
 - what is a bag-of-words model representation?
+
+
+- what does encoding mean in the tutorial?
+
+
+- why are we scoring the word? how is scoring used?
+
+- is there a out-of-the-box sentiment analysis doc?
+
+- don't see how many input nodes specified?
+
+todo:
+- data flow diagram
+- tune network topology
+- drop random connections
+
+
+doc = load_doc(filename)
+
+line = doc_to_line(path, vocab)
+
+
+
+# load the vocabulary
+vocab_filename = 'vocab.txt'
+vocab = load_doc(vocab_filename)
+vocab = vocab.split()
+vocab = set(vocab)
+
+filename = "statementOfIntent_phd.txt"
+
+filename = "system.log"
+filename = "cv000_29590.txt"
+path = filename
+
+# load the doc
+doc = load_doc(filename)
+print(doc)
+
+# clean doc
+tokens = clean_doc(doc)
+print(tokens)
+
+one_doc = doc_to_line(filename, vocab)
+
+# create the tokenizer
+tokenizer = Tokenizer()
+# fit the tokenizer on the documents
+docs = one_doc
+tokenizer.fit_on_texts(docs)
