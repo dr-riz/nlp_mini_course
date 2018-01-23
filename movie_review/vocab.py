@@ -1,6 +1,5 @@
 from string import punctuation
 from os import listdir
-:Q
 from collections import Counter
 from nltk.corpus import stopwords
 
@@ -60,3 +59,22 @@ process_docs('txt_sentoken/neg', vocab)
 print(len(vocab))
 # print the top words in the vocab
 print(vocab.most_common(50))
+
+# keep tokens with a min occurrence
+min_occurane = 2
+tokens = [k for k,c in vocab.items() if c >= min_occurane]
+print(len(tokens))
+
+# save list to file
+def save_list(lines, filename):
+	# convert lines to a single blob of text
+	data = '\n'.join(lines)
+	# open file
+	file = open(filename, 'w')
+	# write text
+	file.write(data)
+	# close file
+	file.close()
+
+# save tokens to a vocabulary file
+save_list(tokens, 'vocab.txt')
