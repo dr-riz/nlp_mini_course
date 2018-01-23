@@ -1,35 +1,81 @@
-- example of vocab?
+x - example of punctuation?
+* period, question mark, exclamation point, comma, semicolon, colon, dash
+
+
+x - example of stop words?
+NLTK stop words: ‘the’, ‘is’, ‘are’
+https://pythonspot.com/nltk-stop-words/
+
+>>> print(stop_words)
+{'are', 'so', "mightn't", 'not', 'has'}
+
+>>> type(stop_words)
+<class 'set'>
+
+x - what are tokens? examples?
+
+e.g. ['films', 'adapted', 'comic', 'books']
+
+>>> type(tokens)
+<class 'list'>
+
+x - why do I need a vocabulary?
+* it is important to constrain the words to only those believed to be predictive:
+** specifically, for sentiment analysis, specifically
+** generally, for task at hand 
+
+x - why can't we use dictionary as a vocabulary?
+* because the dictionary has stop words
+
+x - "Each document, in this case a review, is converted into a vector representation.", example?
+x - what is the difference between Vocab and bag of words?
+* from https://en.wikipedia.org/wiki/Bag-of-words_model, for documents (1) and (2) 
+
+(1) John likes to watch movies. Mary likes movies too.
+(2) John also likes to watch football games.
+
+vocabulary:
+[
+    "John",
+    "likes",
+    "to",
+    "watch",
+    "movies",
+    "Mary",
+    "too",
+    "also",
+    "football",
+    "games"
+]
+
+Vectorized bag of words for the documents:
+(1) [1, 2, 1, 1, 2, 1, 1, 0, 0, 0]
+(2) [1, 1, 1, 1, 0, 0, 0, 1, 1, 1]
+
+- what is a bag-of-words model representation? example of vocab?
+* a set.
 {'bradys', 'jade', 'bushes'}
 
 >>> type(vocab)
 <class 'set'>
 
-- what is the difference between Vocab and bag of words?
-
-
 - why are we creating vocab and bag of words?
+* vocab is used to filter out less commonly used words, to keep the size of vector small
 
+x - what does encoding mean in the tutorial?
+* see bag pf words above
 
-- what are tokens? examples?
-
-e.g. ['films', 'adapted', 'comic', 'books']
->>> type(tokens)
-<class 'list'>
-
-- what is a bag-of-words model representation?
-
-
-- what does encoding mean in the tutorial?
-
+- why using rely as the activation function for the hidden layer?
 
 - why are we scoring the word? how is scoring used?
 
-- is there a out-of-the-box sentiment analysis doc?
+- is there a out-of-the-box sentiment analysis class that can be applied to a piece of text?
 
 - don't see how many input nodes specified?
 
 todo:
-- data flow diagram
+- data flow diagram of the process
+- data distribution for words in vocublary
 - tune network topology
 - drop random connections
 
