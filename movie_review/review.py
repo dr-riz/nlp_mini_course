@@ -108,64 +108,7 @@ model.add(Dense(1, activation='sigmoid'))
 # compile network
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 # fit network
-model.fit(Xtrain, ytrain, epochs=20, verbose=2)
+model.fit(Xtrain, ytrain, epochs=50, verbose=2)
 # evaluate
 loss, acc = model.evaluate(Xtest, ytest, verbose=0)
 print('Test Accuracy: %f' % (acc*100))
-
-
-# saving
-with open('tokenizer.pickle', 'wb') as handle:
-    pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
-# loading
-with open('tokenizer.pickle', 'rb') as handle:
-    tkizer = pickle.load(handle)
-
-# serialize model to JSON
-model_json = model.to_json()
-with open("model.json", "w") as json_file:
-    json_file.write(model_json)
-# serialize weights to HDF5
-model.save_weights("model.h5")
-print("Saved model to disk")
-
-# load json and create model
-json_file = open("model.json", "r")
-loaded_model_json = json_file.read()
-#json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-# load weights into new model
-loaded_model.load_weights("model.h5")
-print("Loaded model from disk")
-
-loaded_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-lss, accuracy = loaded_model.evaluate(Xtest, ytest, verbose=0)
-print('Test Accuracy: %f' % (accuracy*100))
-
-# classify a review as negative (0) or positive (1)
-def predict_sentiment(review, vocab, tokenizer, model):
-	# clean
-	tokens = clean_doc(review)
-	# filter by vocab
-	tokens = [w for w in tokens if w in vocab]
-	# convert to line
-	line = ' '.join(tokens)
-	# encode
-	encoded = tokenizer.texts_to_matrix([line], mode='freq')
-	# prediction
-	yhat = loaded_model.predict(encoded, verbose=0)
-	return round(yhat[0,0])
-
-# load the vocabulary
-vocab_filename = 'vocab.txt'
-voc = load_doc(vocab_filename)
-voc = voc.split()
-voc = set(vocab) #creating a set data type
-	
-# test positive text
-text = 'Best movie ever!'
-print(predict_sentiment(text, voc, tkizer, model))
-# test negative text
-text = 'This is a bad movie.'
-print(predict_sentiment(text, voc, tkizer, model))
