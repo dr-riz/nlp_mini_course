@@ -110,3 +110,25 @@ model.fit(Xtrain, ytrain, epochs=50, verbose=2)
 # evaluate
 loss, acc = model.evaluate(Xtest, ytest, verbose=0)
 print('Test Accuracy: %f' % (acc*100))
+
+
+# classify a review as negative (0) or positive (1)
+def predict_sentiment(review, vocab, tokenizer, model):
+	# clean
+	tokens = clean_doc(review)
+	# filter by vocab
+	tokens = [w for w in tokens if w in vocab]
+	# convert to line
+	line = ' '.join(tokens)
+	# encode
+	encoded = tokenizer.texts_to_matrix([line], mode='freq')
+	# prediction
+	yhat = model.predict(encoded, verbose=0)
+	return round(yhat[0,0])
+	
+# test positive text
+text = 'Best movie ever!'
+print(predict_sentiment(text, vocab, tokenizer, model))
+# test negative text
+text = 'This is a bad movie.'
+print(predict_sentiment(text, vocab, tokenizer, model))
