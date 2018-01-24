@@ -73,11 +73,16 @@ x - what does encoding mean in the tutorial?
 
 - don't see how many input nodes specified?
 
+- what is the difference between Word Scoring of count and frequency? 
+
 todo:
 - data flow diagram of the process
-- data distribution for words in vocublary
+- data distribution for words in vocabulary
 - tune network topology
 - drop random connections
+- utube: relu activation function
+- intuitive understanding of "binary_crossentropy"
+- leaky_relu in python
 
 
 doc = load_doc(filename)

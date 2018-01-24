@@ -101,7 +101,7 @@ print("Xtest.shape,ytest.shape:", Xtest.shape, ytest.shape)
 n_words = Xtest.shape[1] # +1 for bias
 # define network
 model = Sequential() # why is it called Sequential? feed forward nn?
-model.add(Dense(50, input_shape=(n_words,), activation='relu'))
+model.add(Dense(50, input_dim=n_words, activation='relu'))
 model.add(Dense(1, activation='sigmoid')) 
 # compile network
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
