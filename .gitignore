@@ -4,3 +4,4 @@ model.json
 movie_review/statementOfIntent_phd.txt
 movie_review/system.log
 movie_review/tokenizer.pickle
+.DS_Store
