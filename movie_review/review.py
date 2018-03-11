@@ -37,7 +37,7 @@ def clean_doc(doc):
 	return tokens #returns a list of tokens in 1 line
 
 # load doc, clean and return [a single] line of tokens [for the doc] -- 
-# why line of tokens? suspect each line would be vectorized
+# why line of tokens? each line is a doc. suspect each line would be vectorized, yes.
 def doc_to_line(filename, vocab):
 	# load the doc
 	doc = load_doc(filename)

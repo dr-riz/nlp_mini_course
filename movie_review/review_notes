@@ -65,7 +65,8 @@ Vectorized bag of words for the documents:
 x - what does encoding mean in the tutorial?
 * see bag pf words above
 
-- why using rely as the activation function for the hidden layer?
+x - why using relu as the activation function for the hidden layer?
+* to avoid vanishing gradient
 
 - why are we scoring the word? how is scoring used?
 
